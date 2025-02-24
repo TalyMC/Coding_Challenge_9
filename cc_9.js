@@ -11,7 +11,7 @@ class Employee {
         return `Employee: ${this.name}, ID: ${this.id}, Department: ${this.department}, Salary: $${this.salary}`
     };
     calculateAnnualSalary() {
-        return `Annual Salary: $${this.salary * 12}`
+        return this.salary * 12
     }
 };
 
@@ -29,7 +29,12 @@ class Manager extends Employee {
         return `Manager: ${this.name}, ID: ${this.id}, Department: ${this.department}, Salary: $${this.salary}, Team Size: ${this.teamSize}`;
     };
     calculateBonus() {
-        return `10% Bonus: $${this.salary * 12 * 0.10}`;
+        return this.salary * 12 * 0.10;
+    };
+    
+    //Task 4 Implementing a Payroll System
+    calculateAnnualSalary() {
+        return this.salary * 12 + this.calculateBonus();
     };
 };
 
@@ -49,9 +54,21 @@ class Company {
     listEmployees() {
         this.employees.forEach(employee => console.log(employee.getDetails()));
     }
+
+    //Task 4 Implementing a Payroll System
+    calculateTotalPayroll () {
+        return this.employees.reduce((total, employee) => {
+            return total + employee.calculateAnnualSalary(); 
+        }, 0);
+    }
 };
 
 const company = new Company("TechCorp");
 company.addEmployee(emp1);
 company.addEmployee(mgr1);
 company.listEmployees();
+
+//Task 4 Implementing a Payroll System
+console.log(company.calculateTotalPayroll());
+
+//Task 5 
